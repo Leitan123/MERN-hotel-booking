@@ -35,7 +35,10 @@ export const login = async (req, res, next) => {
     if (!isPasswordCorrect)
       return next(createError(400, "wrong password or username"));
 
-    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, "klklkl");
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT
+    ); //hide the password and send as a token
 
     const { password, isAdmin, ...otherDetails } = user._doc;
 
